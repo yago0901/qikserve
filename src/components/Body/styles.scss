@@ -13,34 +13,29 @@
     height: 56px;
     display: flex;
     justify-content: center;
-    position: relative;
+    align-items: center;    
+    gap: 0px;
+    border-radius: 8px;
+    border: 1px solid #8a94a4;
 
     &__search {
-      width: 1024px; /* Definindo a largura para 1024 pixels */
+      width: 1024px; 
       height: 44px;
-      gap: 0px;
-      border-radius: 8px;
-      border: 1px solid #8a94a4;
-      margin-top: 0.5rem;
-      padding-left: 45px;
-
-      font-family: Roboto;
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 20px;
-      text-align: left;
+      
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
 
       &::placeholder {
-        color: #2c2c2c; /* Cor do texto do placeholder (exemplo: tom de laranja) */
+        color: #2c2c2c; 
       }
     }
 
     &__search_icon{
-      position: absolute;
-      top: 16px;
-      left: .5rem;
-      width: 30px;
-      height: 30px;
+      width: auto;
+      height: 20px;
     }
 
     &__background {
