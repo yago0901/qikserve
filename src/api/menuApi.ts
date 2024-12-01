@@ -1,6 +1,6 @@
 //import axios from "axios";
 
-interface MenuItem {
+export interface MenuItem {
   id: number;
   name: string;
   description?: string | null;
@@ -23,7 +23,7 @@ interface Modifier {
   items: Item[]; 
 }
 
-interface Item {
+export interface Item {
   id: number;
   name: string;
   price: number;
@@ -87,6 +87,46 @@ const fakeResponse: Menu = {
           visible: 1,
           availabilityType: "AVAILABLE_NOW",
           sku: "I1625701",
+          modifiers: [
+            {
+              id: 1101001,
+              name: "Choose a size",
+              minChoices: 1,
+              maxChoices: 1,
+              items: [
+                {
+                  id: 1101002,
+                  name: "1 meat",
+                  price: 33.0,
+                  maxChoices: 1,
+                  position: 0,
+                  visible: 1,
+                  availabilityType: "AVAILABLE_NOW",
+                  available: true,
+                },
+                {
+                  id: 1101003,
+                  name: "2 meats",
+                  price: 35.0,
+                  maxChoices: 1,
+                  position: 1000,
+                  visible: 1,
+                  availabilityType: "AVAILABLE_NOW",
+                  available: true,
+                },
+                {
+                  id: 1101004,
+                  name: "3 meats",
+                  price: 37.0,
+                  maxChoices: 1,
+                  position: 2000,
+                  visible: 1,
+                  availabilityType: "AVAILABLE_NOW",
+                  available: true,
+                },
+              ],
+            },
+          ],
           images: [
             {
               id: 108305,
@@ -184,7 +224,7 @@ const fakeResponse: Menu = {
           available: true,
         },
         {
-          id: 1625705,
+          id: 1625706,
           name: "Red Label",
           alcoholic: 1,
           price: 13.0,
@@ -195,7 +235,7 @@ const fakeResponse: Menu = {
           available: true,
         },
         {
-          id: 1625705,
+          id: 1625707,
           name: "Smirnoff",
           alcoholic: 1,
           price: 10.0,
@@ -206,7 +246,7 @@ const fakeResponse: Menu = {
           available: true,
         },
         {
-          id: 1625705,
+          id: 1625708,
           name: "Pink Lemonade",          
           description: "Lemonade whipped with cherries and berries.",
           alcoholic: 1,
