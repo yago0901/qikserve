@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { MenuItem } from '../../api/menuApi';
 import './styles.scss'
 import { IcartItem } from '../../redux/cart/reducer';
+import { RootState } from '@reduxjs/toolkit/query';
 
 interface CartBurgerProps {
   burger: MenuItem;
@@ -11,7 +12,7 @@ interface CartBurgerProps {
 
 const CartBurger = ({burger, setBurgerSelected, setModalIsOpen} :CartBurgerProps ) => {
   
-  const { currentCart } = useSelector((rootReducer) => rootReducer.cartReducer)
+  const { currentCart } = useSelector((rootReducer: RootState) => rootReducer.cartReducer)
 
   const burgerInCart = currentCart.find((item: IcartItem) => item.id === burger.id);
   return(

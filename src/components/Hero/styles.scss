@@ -26,11 +26,15 @@
   }
 
   &__image {
-    width: 1200px; /* Largura definida */
-    height: 100%; /* Altura de 100% (dependendo do contexto do elemento pai) */
-    background-image: url("../../assets/hero.jpg"); /* Imagem de fundo */
-    background-size: cover; /* A imagem será redimensionada para caber no elemento sem cortar */
-    background-position: center -280px; /* A imagem será centralizada */
-    background-repeat: no-repeat; /* Impede a repetição da imagem */
+    width: 1200px;
+    height: 100%;
+    background-image: url("../../assets/hero.jpg");
+    background-size: cover;
+    background-position: center -280px;
+    background-repeat: no-repeat;
+
+    @media (max-width: 768px) {
+      background-position: center center;      
+    }
   }
 }

@@ -5,7 +5,6 @@ import { fetchMenuDetails, Menu, MenuItem } from './api/menuApi';
 import { Modal } from './components/Modal';
 import { Header } from './components/Header';
 import { Cart } from './components/Cart';
-import { useSelector } from 'react-redux';
 import "./index.scss"
 import "./styles.scss";
 import CartMenu from './components/CardMenu';
