@@ -1,7 +1,6 @@
-
 .cart {
   width: 320px;
-  height: 129px;
+  height: 246px;
   background: #ffffff;
   box-shadow: 0px 2px 14px 0px #00000026;
   display: flex;
@@ -10,8 +9,7 @@
   &__title {
     border-radius: 5px 5px 0px 0px;
     opacity: 0px;
-    background-color: #f8f9fa;
-    flex: 1;
+    height: 71px;
     display: flex;
     align-items: center;
     padding-left: 1.7rem;
@@ -27,10 +25,11 @@
   }
 
   &__content {
-    flex: 1;
+    height: auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    padding-left: 1.7rem;
+    justify-content: center;
 
     color: #464646;
     font-size: 16px;
@@ -39,5 +38,172 @@
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
+
+    &__container_card_item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &__description_title {
+        display: flex;
+        width: 288px;
+        justify-content: space-between;
+
+        &__title {
+          color: #121212;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 18.75px;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          margin-top: 0.5rem;
+        }
+
+        &__price {
+          color: #121212;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 18.75px;
+          letter-spacing: 0.5px;
+          text-align: right;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+        }
+      }
+
+      &__description {
+        color: #5f5f5f;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 18.75px;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+      }
+
+      &__actions {
+        width: 94px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+
+        &__button_minus {
+          all: unset;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background-color: #4f372f;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        }
+
+        &__qtd {
+          color: #121212;
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 18.75px;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+        }
+
+        &__button_plus {
+          all: unset;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background-color: #4f372f;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        }
+      }
+    }
+  }
+
+  &__container_total {
+    height: 117px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__content_subtotal {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      background-color: #f8f9fa;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+
+      &__subtotal {
+        width: 288px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h1 {
+          color: #121212;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 18.75px;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+        }
+
+        p {
+          color: #121212;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 18.75px;
+          text-align: right;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+        }
+      }
+    }
+
+    &__content_total {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+
+      &__total {
+        width: 288px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h1 {
+          color: #121212;
+          font-size: 24px;
+          font-weight: 300;
+          line-height: 28.64px;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+        }
+
+        p {
+          color: #121212;
+          font-weight: 500;
+          font-size: 24px;
+          line-height: 28.13px;
+          text-align: right;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+        }
+      }
+    }
   }
 }

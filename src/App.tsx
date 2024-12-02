@@ -7,6 +7,7 @@ import { Header } from './components/Header';
 import { Cart } from './components/Cart';
 import "./index.scss"
 import "./styles.scss";
+import { useSelector } from 'react-redux';
 
 function App() {
   const [menu, setMenu] = useState<Menu | undefined>(undefined);
@@ -16,7 +17,11 @@ function App() {
 
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
-  const [burgerSelected, setBurgerSelected] = useState<MenuItem | undefined>(undefined)
+  const [burgerSelected, setBurgerSelected] = useState<MenuItem | undefined>(undefined);
+
+  const [amountInTheCart, setAmountInTheCart] = useState<number | undefined>(undefined);
+
+  const { currentCart } = useSelector((rootReducer) => rootReducer.cartReducer)
 
   const handleToggle = (detailNumber: number) => {
     if (detailNumber === 1) {
@@ -38,8 +43,19 @@ function App() {
     getMenuDetails();
   }, []);
 
+  useEffect(() => {
+    if (burgerSelected) {
+      const burgerInCart = currentCart.find((item) => item.id === burgerSelected.id);
+      if (burgerInCart) {
+        setAmountInTheCart(burgerInCart.amount);
+      } else {
+        setAmountInTheCart(undefined);
+      }
+    }
+  }, [burgerSelected, currentCart]);
+
   return (
-    <div style={{ position: 'relative', width: '100%', minHeight:'100vh' }}>
+    <div style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
       {modalIsOpen && (
         <>
           <div className="container_modal" onClick={() => setModalIsOpen(false)}>
@@ -90,26 +106,36 @@ function App() {
                 <div className='body__search_container__background__items__burgers__details__menu_option'>
                   {menu?.sections[0].items && (
                     <div className='body__search_container__background__items__burgers__details__menu_option__burgers'>
-                      {menu.sections[0].items.map((burger) => (
-                        <div
-                          key={burger.id}
-                          className='body__search_container__background__items__burgers__details__menu_option__burgers__container'
-                          onClick={() => {
-                            setBurgerSelected(burger);
-                            setModalIsOpen(true);
-                          }}>
-                          <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_info'>
-                            <h3>{burger.name}</h3>
-                            <p>{burger.description}</p>
-                            <span>R${burger.price},00</span>
-                          </div>
-                          {burger.images && (
-                            <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_image'>
-                              <img alt="Classic Burger" src={burger.images[0].image} />
+                      {menu.sections[0].items.map((burger) => {
+                        const burgerInCart = currentCart.find(item => item.id === burger.id);
+                        return (
+                          <div
+                            key={burger.id}
+                            className='body__search_container__background__items__burgers__details__menu_option__burgers__container'
+                            onClick={() => {
+                              setBurgerSelected(burger);
+                              setModalIsOpen(true);
+                            }}>
+                            <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_info'>
+                              <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_info__info'>
+                                {burgerInCart && burgerInCart.id === burger.id &&
+                                  <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_info__info__amount'>
+                                    {burgerInCart.amount}
+                                  </div>
+                                }
+                                <h3>{burger.name}</h3>
+                              </div>
+                              <p>{burger.description}</p>
+                              <span>R${burger.price},00</span>
                             </div>
-                          )}
-                        </div>
-                      ))}
+                            {burger.images && (
+                              <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_image'>
+                                <img alt="Classic Burger" src={burger.images[0].image} />
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -138,7 +164,7 @@ function App() {
               </details>
             </div>
           </div>
-          <Cart/>
+          <Cart />
         </div>
       </div >
     </div>
