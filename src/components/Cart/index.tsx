@@ -3,10 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { IcartItem } from '../../redux/cart/reducer';
 import "./styles.scss"
+import { RootState } from '../../redux/root-reducer';
 
 export const Cart = () => {
 
-  const { currentCart } = useSelector((rootReducer) => rootReducer.cartReducer)
+  const { currentCart } = useSelector((rootReducer:RootState) => rootReducer.cartReducer)
 
   const dispatch = useDispatch();
 
@@ -18,7 +19,7 @@ export const Cart = () => {
         : item
     );
 
-    const updatedItem = updatedCart.find(item => item.id === id);
+    const updatedItem = updatedCart.find((item:IcartItem) => item.id === id);
 
     if (updatedItem) {
       dispatch({
@@ -29,7 +30,7 @@ export const Cart = () => {
       });
     }
   }
-  const subtotal = currentCart.reduce((sum, item) => sum + (item.price * item.amount), 0);
+  const subtotal: number = currentCart.reduce((sum:number, item:IcartItem) => sum + (item.price * item.amount), 0);
 
   const total = subtotal;
 

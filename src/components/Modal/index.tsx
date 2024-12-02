@@ -2,9 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MenuItem } from '../../api/menuApi';
 import { faClose, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import "./styles.scss";
 import { useState } from 'react';
 import { IcartItem } from '../../redux/cart/reducer';
+import { RootState } from '../../redux/root-reducer';
+import "./styles.scss";
+
 interface IModalProps {
   isOpen: boolean;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,7 +15,7 @@ interface IModalProps {
 
 export const Modal = ({ isOpen, onClose, burger }: IModalProps) => {
 
-  const { currentCart } = useSelector((rootReducer) => rootReducer.cartReducer)
+  const { currentCart } = useSelector((rootReducer:RootState) => rootReducer.cartReducer)
 
   const dispatch = useDispatch();
 
@@ -54,8 +56,8 @@ export const Modal = ({ isOpen, onClose, burger }: IModalProps) => {
     }
   };
 
-  const increaseQuantity = () => { setBurgerQtd((prev) => prev + 1) };
-  const decreaseQuantity = () => setBurgerQtd((prev) => (prev > 1 ? prev - 1 : prev));
+  const increaseQuantity = () => { setBurgerQtd((prev:number) => prev + 1) };
+  const decreaseQuantity = () => setBurgerQtd((prev :number) => (prev > 1 ? prev - 1 : prev));
 
   if (!isOpen) return null;
 

@@ -34,7 +34,7 @@ export interface Item {
   available: boolean; 
 }
 
-interface MenuSection {
+export interface MenuSection {
   id: number;
   name: string;
   alcoholic?: number;

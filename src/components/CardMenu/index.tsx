@@ -1,6 +1,11 @@
-import './styles.scss'
+import { MenuSection } from '../../api/menuApi'
+import './styles.scss';
 
-const CartMenu = ({section}) => {
+interface CartMenuProps {
+  section: MenuSection;
+}
+
+const CartMenu = ({section}:CartMenuProps) => {
   return (
 
     <div className='content_card'
