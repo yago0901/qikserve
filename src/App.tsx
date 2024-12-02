@@ -10,8 +10,6 @@ import "./index.scss"
 import "./styles.scss";
 import CartMenu from './components/CardMenu';
 import CartBurger from './components/CardBurger';
-import { IcartItem } from './redux/cart/reducer';
-import CardDrink from './components/CardDrink/indes';
 
 function App() {
   const [menu, setMenu] = useState<Menu | undefined>(undefined);
@@ -22,8 +20,6 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
   const [burgerSelected, setBurgerSelected] = useState<MenuItem | undefined>(undefined);
-
-  const { currentCart } = useSelector((rootReducer) => rootReducer.cartReducer)
 
   const handleToggle = (detailNumber: number) => {
     if (detailNumber === 1) {
