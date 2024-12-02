@@ -5,9 +5,13 @@ import { fetchMenuDetails, Menu, MenuItem } from './api/menuApi';
 import { Modal } from './components/Modal';
 import { Header } from './components/Header';
 import { Cart } from './components/Cart';
+import { useSelector } from 'react-redux';
 import "./index.scss"
 import "./styles.scss";
-import { useSelector } from 'react-redux';
+import CartMenu from './components/CardMenu';
+import CartBurger from './components/CardBurger';
+import { IcartItem } from './redux/cart/reducer';
+import CardDrink from './components/CardDrink/indes';
 
 function App() {
   const [menu, setMenu] = useState<Menu | undefined>(undefined);
@@ -18,8 +22,6 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
   const [burgerSelected, setBurgerSelected] = useState<MenuItem | undefined>(undefined);
-
-  const [amountInTheCart, setAmountInTheCart] = useState<number | undefined>(undefined);
 
   const { currentCart } = useSelector((rootReducer) => rootReducer.cartReducer)
 
@@ -43,17 +45,6 @@ function App() {
     getMenuDetails();
   }, []);
 
-  useEffect(() => {
-    if (burgerSelected) {
-      const burgerInCart = currentCart.find((item) => item.id === burgerSelected.id);
-      if (burgerInCart) {
-        setAmountInTheCart(burgerInCart.amount);
-      } else {
-        setAmountInTheCart(undefined);
-      }
-    }
-  }, [burgerSelected, currentCart]);
-
   return (
     <div style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
       {modalIsOpen && (
@@ -76,25 +67,7 @@ function App() {
             {menu && (
               <div className='body__search_container__background__items__menu'>
                 {menu?.sections.map((section) => (
-                  <div className='body__search_container__background__items__menu__content_card'
-                    key={section.id}
-                  >
-                    {section.images && section.images.length > 0 && (
-                      <div className='body__search_container__background__items__menu__content_card__content_img'>
-                        <img className='body__search_container__background__items__menu__content_card__content_img__img'
-                          src={section.images[0].image}
-                          alt={`Image of ${section.name}`}
-                        />
-                      </div>
-                    )}
-                    <div className='body__search_container__background__items__menu__content_card__content_text'>
-                      <div className='body__search_container__background__items__menu__content_card__content_text__text'>
-                        <h2>
-                          {section.name}
-                        </h2>
-                      </div>
-                    </div>
-                  </div>
+                  <CartMenu key={section.id} section={section} />
                 ))}
               </div>
             )}
@@ -106,36 +79,14 @@ function App() {
                 <div className='body__search_container__background__items__burgers__details__menu_option'>
                   {menu?.sections[0].items && (
                     <div className='body__search_container__background__items__burgers__details__menu_option__burgers'>
-                      {menu.sections[0].items.map((burger) => {
-                        const burgerInCart = currentCart.find(item => item.id === burger.id);
-                        return (
-                          <div
-                            key={burger.id}
-                            className='body__search_container__background__items__burgers__details__menu_option__burgers__container'
-                            onClick={() => {
-                              setBurgerSelected(burger);
-                              setModalIsOpen(true);
-                            }}>
-                            <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_info'>
-                              <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_info__info'>
-                                {burgerInCart && burgerInCart.id === burger.id &&
-                                  <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_info__info__amount'>
-                                    {burgerInCart.amount}
-                                  </div>
-                                }
-                                <h3>{burger.name}</h3>
-                              </div>
-                              <p>{burger.description}</p>
-                              <span>R${burger.price},00</span>
-                            </div>
-                            {burger.images && (
-                              <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_image'>
-                                <img alt="Classic Burger" src={burger.images[0].image} />
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })}
+                      {menu.sections[0].items.map((burger) => (
+                        <CartBurger
+                          key={burger.id}
+                          burger={burger}
+                          setBurgerSelected={setBurgerSelected}
+                          setModalIsOpen={setModalIsOpen}
+                        />
+                      ))}
                     </div>
                   )}
                 </div>

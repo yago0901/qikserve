@@ -47,7 +47,7 @@ export const Cart = () => {
                   {itemCart.name}
                 </div>
                 <div className='cart__content__container_card_item__description_title__price'>
-                  {`R$ ${itemCart.price},00`}
+                  {`R$ ${itemCart.price * itemCart.amount},00`}
                 </div>
               </div>
               <div className='cart__content__container_card_item__description'>

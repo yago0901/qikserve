@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Item, MenuItem } from '../../api/menuApi';
+import { MenuItem } from '../../api/menuApi';
 import { faClose, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import "./styles.scss";
 import { useState } from 'react';
+import { IcartItem } from '../../redux/cart/reducer';
 interface IModalProps {
   isOpen: boolean;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,15 +17,21 @@ export const Modal = ({ isOpen, onClose, burger }: IModalProps) => {
 
   const dispatch = useDispatch();
 
-  const existingCartItem = currentCart.find((item: Item) => item.id === burger?.id);
+  const existingCartItem = currentCart.find((item: IcartItem) => item.id === burger?.id);
   const amount = existingCartItem ? existingCartItem.amount : 1;
   const [burgerQtd, setBurgerQtd] = useState(amount);
 
   const [selectedItem, setSelectedItem] = useState<string | undefined>(undefined);
 
+  const [erroMessage, setErroMessage] = useState<string | undefined>(undefined);
+
   const handleAddProductCart = () => {
 
     if (selectedItem === undefined) {
+      setErroMessage('Necessário selecionar a quantidade de meet');
+      setTimeout(() => {
+        setErroMessage(undefined);
+      }, 3000);
       return;
     }
 
@@ -33,14 +40,18 @@ export const Modal = ({ isOpen, onClose, burger }: IModalProps) => {
         type: 'cart/updateAmount',
         payload: { cartItem: { id: burger?.id, amount: existingCartItem.amount + burgerQtd } }
       });*/
-      console.log('já existe no carrinho')
+      setErroMessage('Este produto já está no carrinho');
+      setTimeout(() => {
+        setErroMessage(undefined);
+      }, 3000);
+
     } else {
       dispatch({
         type: 'cart/add',
         payload: { cartItem: { id: burger?.id, name: burger?.name, description: selectedItem, price: burger?.price, amount: burgerQtd } }
       });
+      onClose(false);
     }
-    onClose(false);
   };
 
   const increaseQuantity = () => { setBurgerQtd((prev) => prev + 1) };
@@ -121,6 +132,11 @@ export const Modal = ({ isOpen, onClose, burger }: IModalProps) => {
                 className='modal_container__modal__container_actions__actions__button__plus' />
             </button>
           </div>
+          {erroMessage &&
+            <p className='modal_container__modal__container_actions__actions__error'>
+              {erroMessage}
+            </p>
+          }
           <div className='modal_container__modal__container_actions__submit'>
             <button
               className='modal_container__modal__container_actions__submit__button'
@@ -131,7 +147,7 @@ export const Modal = ({ isOpen, onClose, burger }: IModalProps) => {
           </div>
         </div>
       </div>
-      
+
     </div>
   );
 }
