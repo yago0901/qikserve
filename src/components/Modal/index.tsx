@@ -1,17 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { MenuItem } from '../../api/menuApi';
 import { faClose, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { IcartItem } from '../../redux/cart/reducer';
 import { RootState } from '../../redux/root-reducer';
+import { IModalProps } from './types';
 import "./styles.scss";
-
-interface IModalProps {
-  isOpen: boolean;
-  onClose: React.Dispatch<React.SetStateAction<boolean>>;
-  burger?: MenuItem;
-}
 
 export const Modal = ({ isOpen, onClose, burger }: IModalProps) => {
 
@@ -21,10 +15,12 @@ export const Modal = ({ isOpen, onClose, burger }: IModalProps) => {
 
   const existingCartItem = currentCart.find((item: IcartItem) => item.id === burger?.id);
   const amount = existingCartItem ? existingCartItem.amount : 1;
+
+  const increaseQuantity = () => { setBurgerQtd((prev:number) => prev + 1) };
+  const decreaseQuantity = () => setBurgerQtd((prev :number) => (prev > 1 ? prev - 1 : prev));
+
   const [burgerQtd, setBurgerQtd] = useState(amount);
-
   const [selectedItem, setSelectedItem] = useState<string | undefined>(undefined);
-
   const [erroMessage, setErroMessage] = useState<string | undefined>(undefined);
 
   const handleAddProductCart = () => {
@@ -38,10 +34,6 @@ export const Modal = ({ isOpen, onClose, burger }: IModalProps) => {
     }
 
     if (existingCartItem) {
-      /*dispatch({
-        type: 'cart/updateAmount',
-        payload: { cartItem: { id: burger?.id, amount: existingCartItem.amount + burgerQtd } }
-      });*/
       setErroMessage('Este produto já está no carrinho');
       setTimeout(() => {
         setErroMessage(undefined);
@@ -55,9 +47,6 @@ export const Modal = ({ isOpen, onClose, burger }: IModalProps) => {
       onClose(false);
     }
   };
-
-  const increaseQuantity = () => { setBurgerQtd((prev:number) => prev + 1) };
-  const decreaseQuantity = () => setBurgerQtd((prev :number) => (prev > 1 ? prev - 1 : prev));
 
   if (!isOpen) return null;
 
@@ -149,7 +138,6 @@ export const Modal = ({ isOpen, onClose, burger }: IModalProps) => {
           </div>
         </div>
       </div>
-
     </div>
   );
 }

@@ -1,9 +1,5 @@
-import { MenuSection } from '../../api/menuApi'
 import './styles.scss';
-
-interface CartMenuProps {
-  section: MenuSection;
-}
+import { CartMenuProps } from './types';
 
 const CartMenu = ({section}:CartMenuProps) => {
   return (

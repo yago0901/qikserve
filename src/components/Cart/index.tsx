@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { IcartItem } from '../../redux/cart/reducer';
-import "./styles.scss"
 import { RootState } from '../../redux/root-reducer';
+import "./styles.scss"
 
 export const Cart = () => {
 

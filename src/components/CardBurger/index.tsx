@@ -1,21 +1,8 @@
 import { useSelector } from 'react-redux';
-import { MenuItem } from '../../api/menuApi';
-import './styles.scss'
 import { IcartItem } from '../../redux/cart/reducer';
-
-interface CartBurgerProps {
-  burger: MenuItem;
-  setBurgerSelected: (burger: MenuItem) => void;
-  setModalIsOpen: (isOpen: boolean) => void;
-}
-
-interface CardState {
-  currentCart: any[];
-}
-
-export interface RootState {
-  cartReducer : CardState;
-}
+import { CartBurgerProps } from './types';
+import { RootState } from '../../redux/root-reducer';
+import './styles.scss';
 
 const CartBurger = ({burger, setBurgerSelected, setModalIsOpen} :CartBurgerProps ) => {
   
@@ -25,15 +12,15 @@ const CartBurger = ({burger, setBurgerSelected, setModalIsOpen} :CartBurgerProps
   return(
   <div
     key={burger.id}
-    className='body__search_container__background__items__burgers__details__menu_option__burgers__container'
+    className='card_burger'
     onClick={() => {
       setBurgerSelected(burger);
       setModalIsOpen(true);
     }}>
-    <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_info'>
-      <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_info__info'>
+    <div className='card_burger__menu_info'>
+      <div className='card_burger__menu_info__info'>
         {burgerInCart && burgerInCart.id === burger.id &&
-          <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_info__info__amount'>
+          <div className='card_burger__menu_info__info__amount'>
             {burgerInCart.amount}
           </div>
         }
@@ -43,7 +30,7 @@ const CartBurger = ({burger, setBurgerSelected, setModalIsOpen} :CartBurgerProps
       <span>R${burger.price},00</span>
     </div>
     {burger.images && (
-      <div className='body__search_container__background__items__burgers__details__menu_option__burgers__container__menu_image'>
+      <div className='card_burger__menu_image'>
         <img alt="Classic Burger" src={burger.images[0].image} />
       </div>
     )}
