@@ -229,17 +229,43 @@
 
       &__container_img {
         width: 100%;
+        height: auto;
       }
 
       &__container_title {
+        height: auto;
         &__title {
           width: 100%;
+
+          h1{
+            margin-left: 1rem;
+          }
+
+          p{
+            margin-left: 1rem;
+            margin-right: 1rem;
+          }
         }
       }
+
+      &__container_title_options{
+        height: auto;
+        margin-top: .5rem;
+      }
       &__container_meet {
+        height: auto;
+        margin-top: .5rem;
+
         &__meet {
           width: 100%;
-          justify-content: space-around;
+          justify-content: space-between;
+          margin: 0px 1rem;
+        }
+      }
+
+      &__container_actions{
+        &__submit{
+          width: 100%;
         }
       }
     }
